@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, 'mainpage/index.html')
@@ -15,12 +16,14 @@ def discuss(request):
     context = {'topics':topics}
     return render(request, 'mainpage/discuss.html', context)
 
+@login_required
 def topic(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
     comments = topic.comment_set.order_by('-date_added')
     context = {'topic':topic, 'comments':comments}
     return render(request, 'mainpage/topic.html', context)
 
+@login_required
 def pollform(request, poll_id):
     poll = Poll.objects.get(id=poll_id)
     choices = []
