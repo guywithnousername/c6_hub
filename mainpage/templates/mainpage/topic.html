@@ -1,0 +1,13 @@
+{% extends "mainpage/base.html" %}
+{% block content %}
+<h1>{{ topic }}</h1>
+<p>{{ topic.body }}</p>
+<h2>Comments</h2>
+<ul>
+    {% for comment in comments %}
+        <li>{{ comment }}</li>
+    {% empty %}
+        <li>There are no comments... yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

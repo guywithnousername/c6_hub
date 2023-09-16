@@ -1,0 +1,13 @@
+{% extends "mainpage/base.html" %}
+{% block content %}
+<h1>Discuss</h1>
+<ul>
+    {% for topic in topics %}
+        <li>
+            <a href="{% url 'mainpage:topic' topic.id %}">{{ topic }}</a>
+        </li>
+    {% empty %}
+        <li>Be the first! Discuss a topic.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
