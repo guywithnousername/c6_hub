@@ -28,6 +28,8 @@ def pollform(request, poll_id):
     for c in poll.choices:
         choices.append([i, c])
         i += 1
+    if len(poll.values) < 1:
+        poll.values = [0] * len(choices)
     if request.method != 'POST':
         form = PollForm()
         form.fields["choice"] = forms.ChoiceField(choices=choices)
@@ -36,7 +38,10 @@ def pollform(request, poll_id):
         form.fields["choice"] = forms.ChoiceField(choices=choices)
         if form.is_valid():
             # use form results
-            print(form.cleaned_data["choice"])
+            chosen = form.cleaned_data["choice"]
+            poll.values[int(chosen)] += 1
+            poll.save()
+            print(*poll.values)
             return redirect('mainpage:poll')
     context = {'form' : form, 'poll' : poll}
     return render(request, 'mainpage/pollform.html', context)
