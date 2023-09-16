@@ -16,6 +16,12 @@
                 <li class="nav-item"><a href="{% url 'mainpage:index' %}" class="nav-link active" aria-current="page">Home</a></li>
                 <li class="nav-item"><a href="{% url 'mainpage:discuss' %}" class="nav-link">Discuss</a></li>
                 <li class="nav-item"><a href="{% url 'mainpage:poll' %}" class="nav-link">Polls</a></li>
+                {% if user.is_authenticated %}
+                <li class="nav-item nav-link" style="color:black">Hello, {{ user.username }}</li>
+                <li class="nav-item"><a href="{% url 'users:logout' %}" class="nav-link">Log out</a></li>
+                {% else %}
+                <li class="nav-item"><a href="{% url 'users:login' %}" class="nav-link">Log in</a></li>
+                {% endif %}
             </ul>
         </header>
     </div>
