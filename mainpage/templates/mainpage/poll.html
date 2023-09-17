@@ -1,6 +1,7 @@
 {% extends "mainpage/base.html" %}
 {% block content %}
 <h1>Polls</h1>
+<a href="{% url 'mainpage:newpoll' %}">Create a poll</a><br>
 {% for poll in polls %}
     <div class="card"><div class="card-body">
         <small class="card-text">{{ poll.creator.username }}</small><br>

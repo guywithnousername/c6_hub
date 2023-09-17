@@ -92,3 +92,22 @@ def newcomment(request, topic_id):
             return redirect('mainpage:topic', topic_id=topic_id)
     context = {'topic':topic, 'form':form}
     return render(request, 'mainpage/newcomment.html', context)
+
+@login_required
+def newpoll(request):
+    if request.method != 'POST':
+        form = CreatePollForm()
+    else:
+        form = CreatePollForm(data=request.POST)
+        if form.is_valid():
+            question = form.cleaned_data['question']
+            choices = form.cleaned_data['choices']
+            poll = Poll()
+            poll.question = question
+            poll.values = {"":-1}
+            poll.creator = request.user
+            poll.choices = choices.split("\n")
+            poll.save()
+            return redirect('mainpage:poll')
+    context = {'form':form}
+    return render(request, 'mainpage/newpoll.html', context)

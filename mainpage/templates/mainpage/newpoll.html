@@ -1,0 +1,10 @@
+{% extends "mainpage/base.html" %}
+
+{% block content %}
+<h1>Create a poll</h1>
+<form action="{% url 'mainpage:newpoll' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">New Poll</button>
+</form>
+{% endblock %}
