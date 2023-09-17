@@ -18,3 +18,9 @@ class CommentForm(forms.ModelForm):
         fields = ['text']
         labels = {'text':''}
         widgets = {'body': forms.Textarea(attrs = {'cols': 40})}
+        
+class PollForm(forms.Form):
+    question = forms.CharField(max_length=100)
+    choices = forms.CharField(max_length=500, initial="Each choice should go on a different line.",
+                              widget=forms.Textarea(attrs={'cols':40}))
+    

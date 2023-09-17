@@ -1,13 +1,13 @@
 {% extends "mainpage/base.html" %}
 {% block content %}
 <h1>{{ topic }}</h1>
-<p>{{ topic.body }}</p><hr>
+<pre>{{ topic.body }}</pre><hr>
 <h2>Comments</h2>
 <a href="{% url 'mainpage:newcomment' topic.id %}">Comment</a><br>
 {% for comment in comments %}
 <div class="card"><div class="card-body">
     <small class="card-text">{{ comment.creator.username }}</small><br>
-    <p class="card-text">{{ comment }}</p>
+    <pre class="card-text">{{ comment }}</pre>
 </div></div>
 {% empty %}
     <p>There are no comments... yet.</p>

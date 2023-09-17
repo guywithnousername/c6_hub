@@ -4,7 +4,7 @@
 {% for poll in polls %}
     <div class="card"><div class="card-body">
         <small class="card-text">{{ poll.creator.username }}</small><br>
-        <a class="card-text" href="{% url 'mainpage:pollform' poll.id %}">{{ poll }}</a>
+        <pre><a class="card-text" href="{% url 'mainpage:pollform' poll.id %}">{{ poll }}</a></pre>
     </div></div>
 {% empty %}
     <p>Be the first! Create a poll.</p>

@@ -5,7 +5,7 @@
 {% for topic in topics %}
     <div class="card"><div class="card-body">
         <small class="card-text">{{ topic.creator.username }}</small><br>
-        <a class="card-text" href="{% url 'mainpage:topic' topic.id %}">{{ topic }}</a>
+        <pre><a class="card-text" href="{% url 'mainpage:topic' topic.id %}">{{ topic }}</a></pre>
     </div></div>
 {% empty %}
     <p>Be the first! Discuss a topic.</p>
