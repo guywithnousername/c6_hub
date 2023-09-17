@@ -1,8 +1,9 @@
 {% extends "mainpage/base.html" %}
 {% block content %}
 <h1>{{ topic }}</h1>
-<p>{{ topic.body }}</p>
+<p>{{ topic.body }}</p><hr>
 <h2>Comments</h2>
+<a href="{% url 'mainpage:newcomment' topic.id %}">Comment</a><br>
 <ul>
     {% for comment in comments %}
         <li>{{ comment }}</li>

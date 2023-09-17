@@ -13,5 +13,6 @@ urlpatterns = [
     path('polls/<int:poll_id>/', views.pollform, name = 'pollform'),
     path('viewpoll/<int:poll_id>/', views.viewpoll, name= 'viewpoll'),
     # create models
-    path('createtopic/', views.newtopic, name='newtopic')
+    path('createtopic/', views.newtopic, name='newtopic'),
+    path('createcomment/<int:topic_id>', views.newcomment, name='newcomment')
 ]

@@ -11,3 +11,10 @@ class TopicForm(forms.ModelForm):
         fields = ['title', 'body']
         labels = {'title':'Title:', 'body':'Text:'}
         widgets = {'body':forms.Textarea(attrs={'cols': 80})}
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']
+        labels = {'text':''}
+        widgets = {'body': forms.Textarea(attrs = {'cols': 40})}

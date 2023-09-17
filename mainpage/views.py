@@ -74,3 +74,18 @@ def newtopic(request):
             return redirect('mainpage:discuss')
     context = {'form':form}
     return render(request, 'mainpage/newtopic.html', context)
+
+@login_required
+def newcomment(request, topic_id):
+    topic = Topic.objects.get(id=topic_id)
+    if request.method != 'POST':
+        form = CommentForm()
+    else:
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            new_entry = form.save(commit=False)
+            new_entry.topic = topic
+            new_entry.save()
+            return redirect('mainpage:topic', topic_id=topic_id)
+    context = {'topic':topic, 'form':form}
+    return render(request, 'mainpage/newcomment.html', context)

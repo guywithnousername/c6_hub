@@ -1,0 +1,10 @@
+{% extends "mainpage/base.html" %}
+
+{% block content %}
+<h1>Commenting on "{{ topic }}"</h1>
+<form action="{% url 'mainpage:newcomment' topic.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Comment</button>
+</form>
+{% endblock %}
