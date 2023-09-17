@@ -1,10 +1,13 @@
 {% extends "mainpage/base.html" %}
+{% load bootstrap4 %}
 
 {% block content %}
 <h1>Discuss a topic</h1>
 <form action="{% url 'mainpage:newtopic' %}" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% bootstrap_form form %}
+    {% buttons %}
     <button name="submit">New Topic</button>
+    {% endbuttons %}
 </form>
 {% endblock %}
