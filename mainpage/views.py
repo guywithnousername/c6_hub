@@ -26,13 +26,13 @@ def topic(request, topic_id):
 @login_required
 def pollform(request, poll_id):
     poll = Poll.objects.get(id=poll_id)
+    if request.user.username in poll.values.keys():
+        return redirect('mainpage:viewpoll', poll_id)
     choices = []
     i = 0
     for c in poll.choices:
         choices.append([i, c])
         i += 1
-    if len(poll.values) < 1:
-        poll.values = [0] * len(choices)
     if request.method != 'POST':
         form = PollForm()
         form.fields["choice"] = forms.ChoiceField(choices=choices)
@@ -42,9 +42,23 @@ def pollform(request, poll_id):
         if form.is_valid():
             # use form results
             chosen = form.cleaned_data["choice"]
-            poll.values[int(chosen)] += 1
+            poll.values[request.user.username] = int(chosen)
             poll.save()
-            print(*poll.values)
-            return redirect('mainpage:poll')
+            print(*poll.values.values())
+            return redirect('mainpage:viewpoll', poll_id)
     context = {'form' : form, 'poll' : poll}
     return render(request, 'mainpage/pollform.html', context)
+
+@login_required
+def viewpoll(request, poll_id):
+    poll = Poll.objects.get(id=poll_id)
+    total = len(poll.values) - 1
+    vals = []
+    for choice in poll.choices:
+        vals.append([choice, 0, 0])
+    for val in poll.values.values():
+        if val != -1:
+            vals[val][1] += 1
+            vals[val][2] = vals[val][1] / total * 100
+    context = {"poll":poll, "total":total, "values":vals}
+    return render(request, "mainpage/viewp.html", context)
