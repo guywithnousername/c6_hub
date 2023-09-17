@@ -1,0 +1,10 @@
+{% extends "mainpage/base.html" %}
+
+{% block content %}
+<h1>Discuss a topic</h1>
+<form action="{% url 'mainpage:newtopic' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">New Topic</button>
+</form>
+{% endblock %}

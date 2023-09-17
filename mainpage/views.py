@@ -62,3 +62,15 @@ def viewpoll(request, poll_id):
             vals[val][2] = vals[val][1] / total * 100
     context = {"poll":poll, "total":total, "values":vals}
     return render(request, "mainpage/viewp.html", context)
+
+@login_required
+def newtopic(request):
+    if request.method != 'POST':
+        form = TopicForm()
+    else:
+        form = TopicForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('mainpage:discuss')
+    context = {'form':form}
+    return render(request, 'mainpage/newtopic.html', context)

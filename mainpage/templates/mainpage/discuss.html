@@ -1,6 +1,7 @@
 {% extends "mainpage/base.html" %}
 {% block content %}
 <h1>Discuss</h1>
+<a href="{% url 'mainpage:newtopic' %}">Create a topic</a><hr>
 <ul>
     {% for topic in topics %}
         <li>
