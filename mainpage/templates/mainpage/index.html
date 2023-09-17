@@ -1,5 +1,58 @@
 {% extends "mainpage/base.html" %}
 {% block content %}
-<h1>Vote Minglang</h1>
-
+<div class="p-5 mb-4 bg-body-tertiary rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Vote Minglang</h1>
+        <p class="col-md-8 fs-4">My number one priority is to make sure this year will be 
+            the most fun and memorable year at Challenger. With my dedication, talent, 
+            and innovative ideas, I believe I am the best candidate for class representative.
+        </p>
+    </div>
+</div>
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold text-body-emphasis">C6's Own Website</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">If I am elected, you will be able to use this website's
+        full range of features. Currently, the two features shown below are 
+        the only ones, but there will be more as the year marches on.
+      </p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a href="{% url 'users:register' %}"><button type="button" class="btn btn-primary btn-lg px-4 gap-3">Register</button></a>
+      </div>
+    </div>
+</div>
+<div class="container px-4 py-5" id="featured-3">
+    <h2 class="pb-2 border-bottom">Features</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+      <div class="feature col">
+        <h2>Centralized Discussions</h2>
+        <p>Discussions that can range from jokes to test reviews, bridging the 
+            gaps caused by different messaging platforms (gmail and discord). 
+        </p>
+        <a href="{% url 'mainpage:discuss' %}" class="icon-link">
+          Discuss
+        </a>
+      </div>
+      <div class="feature col">
+        <h2>Flexible Polls</h2>
+        <p>Create polls to ask thought-provoking questions or discover what
+            the class wants to have. Polls are flexible and can be used in 
+            many ways.
+        </p>
+        <a href="{% url 'mainpage:poll' %}" class="icon-link">
+          Polls
+        </a>
+    </div>
+    <div class="feature col">
+        <h2>Engaging activities</h2>
+        <p>An upcoming feature is the inclusion of activities, which
+            will keep you engaged and coming back for more. Currently, 
+            I'm working on a list of ideas. Email me your ideas!
+        </p>
+        <a href="https://gmail.com" class="icon-link">
+            Email Me
+        </a>
+        </div>
+    </div>
+</div>
 {% endblock %}
