@@ -1,12 +1,13 @@
 {% extends "mainpage/base.html" %}
 
 {% block content %}
-<h1>{{ poll }}</h1><br>
+<h1>Poll Results</h1>
+<p>{{ poll }}</p><br>
 {% for value in values %}
 <div class="progress">
     <div class="progress-bar" role="progressbar" 
     aria-valuenow="{{ value.1 }}" aria-valuemin="0" 
-    aria-valuemax="{{ total }}" style="width:{{ value.2 }}%">{{ value.0 }}</div>
+    aria-valuemax="{{ total }}" style="width:{{ value.2 }}%">{{ value.0 }} - {{ value.2 }}</div>
 </div>
 <br>
 {% endfor %}

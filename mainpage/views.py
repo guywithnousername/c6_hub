@@ -70,7 +70,9 @@ def newtopic(request):
     else:
         form = TopicForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            new = form.save(commit=False)
+            new.creator = request.user
+            new.save()
             return redirect('mainpage:discuss')
     context = {'form':form}
     return render(request, 'mainpage/newtopic.html', context)
@@ -83,9 +85,10 @@ def newcomment(request, topic_id):
     else:
         form = CommentForm(data=request.POST)
         if form.is_valid():
-            new_entry = form.save(commit=False)
-            new_entry.topic = topic
-            new_entry.save()
+            new = form.save(commit=False)
+            new.topic = topic
+            new.creator = request.user
+            new.save()
             return redirect('mainpage:topic', topic_id=topic_id)
     context = {'topic':topic, 'form':form}
     return render(request, 'mainpage/newcomment.html', context)

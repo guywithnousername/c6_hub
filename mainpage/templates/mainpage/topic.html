@@ -4,11 +4,12 @@
 <p>{{ topic.body }}</p><hr>
 <h2>Comments</h2>
 <a href="{% url 'mainpage:newcomment' topic.id %}">Comment</a><br>
-<ul>
-    {% for comment in comments %}
-        <li>{{ comment }}</li>
-    {% empty %}
-        <li>There are no comments... yet.</li>
-    {% endfor %}
-</ul>
+{% for comment in comments %}
+<div class="card"><div class="card-body">
+    <small class="card-text">{{ comment.creator.username }}</small><br>
+    <p class="card-text">{{ comment }}</p>
+</div></div>
+{% empty %}
+    <p>There are no comments... yet.</p>
+{% endfor %}
 {% endblock %}

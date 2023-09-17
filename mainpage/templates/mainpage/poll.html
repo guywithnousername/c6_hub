@@ -1,11 +1,12 @@
 {% extends "mainpage/base.html" %}
 {% block content %}
 <h1>Polls</h1>
-<ul>
-    {% for poll in polls %}
-    <li><a href="{% url 'mainpage:pollform' poll.id %}">{{ poll }}</a></li>
-    {% empty %}
-        <li>Be the first! Create a poll.</li>
-    {% endfor %}
-</ul>
+{% for poll in polls %}
+    <div class="card"><div class="card-body">
+        <small class="card-text">{{ poll.creator.username }}</small><br>
+        <a class="card-text" href="{% url 'mainpage:pollform' poll.id %}">{{ poll }}</a>
+    </div></div>
+{% empty %}
+    <p>Be the first! Create a poll.</p>
+{% endfor %}
 {% endblock %}
