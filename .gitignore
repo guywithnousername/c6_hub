@@ -1,2 +1,11 @@
+.gitignore
 /db.sqlite3
 /.venv
+**.pyc
+*.pyc
+bin
+lib
+lib64
+pyvenv.cfg
+share
+log.stderr

@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-yr2m)zus36jjx=_fs0!)raplh%)#f)95p0_^(!w(9=+5*9qgn6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['c6.cydu.net']
 
 
 # Application definition
@@ -128,3 +128,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'users:login'
+
+CSRF_TRUSTED_ORIGINS = ['https://c6.cydu.net','http://127.0.0.1']
