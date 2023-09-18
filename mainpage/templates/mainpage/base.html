@@ -19,6 +19,7 @@
                 <li class="nav-item"><a href="{% url 'mainpage:discuss' %}" class="nav-link">Discuss</a></li>
                 <li class="nav-item"><a href="{% url 'mainpage:poll' %}" class="nav-link">Polls</a></li>
                 {% if user.is_authenticated %}
+                <li class="nav-item"><a href="{% url 'users:notifications' %}" class="nav-link">Notifications</a></li>
                 <li class="nav-item nav-link" style="color:black">Hello, {{ user.username }}</li>
                 <li class="nav-item"><a href="{% url 'users:logout' %}" class="nav-link">Log out</a></li>
                 {% else %}

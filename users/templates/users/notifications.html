@@ -1,0 +1,13 @@
+{% extends "mainpage/base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+<h1>Notifications</h1><hr>
+{% for notif in notifs %}
+<div class="card"><div class="card-body">
+    <p class="card-text">{{ notif }}</p><br>
+</div></div>
+{% empty %}
+<p>You have no unread notifications.</p>
+{% endfor %}
+{% endblock %}
