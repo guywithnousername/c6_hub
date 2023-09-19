@@ -20,5 +20,7 @@ def register(request):
 def notifications(request):
     if not hasattr(request.user, "notification"):
         Notification.objects.create(user=request.user, unread = [])
+    request.user.notification.read = True
+    request.user.notification.save()
     context = {"notifs":request.user.notification.unread}
     return render(request, "users/notifications.html", context)
