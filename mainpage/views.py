@@ -45,12 +45,6 @@ def pollform(request, poll_id):
             poll.values[request.user.username] = int(chosen)
             poll.save()
             addnotif(poll.creator, {"type":"pollvote", "id":poll.id})
-            # if hasattr(poll.creator, "notification"):
-            #     poll.creator.notification.unread.append({"type":"pollvote", "id":poll.id})
-            #     poll.creator.notification.save()
-            # else:
-            #     apps.get_model("users","Notification").objects.create(user=poll.creator,
-            #     unread = [{"type":"pollvote", "id":poll.id}])
             return redirect('mainpage:viewpoll', poll_id)
     context = {'form' : form, 'poll' : poll}
     return render(request, 'mainpage/pollform.html', context)
@@ -79,6 +73,8 @@ def newtopic(request):
             new = form.save(commit=False)
             new.creator = request.user
             new.save()
+            for user in User.objects.all():
+                addnotif(user, {"type":"newtopic", "id":new.id})
             return redirect('mainpage:discuss')
     context = {'form':form}
     return render(request, 'mainpage/newtopic.html', context)
@@ -95,6 +91,7 @@ def newcomment(request, topic_id):
             new.topic = topic
             new.creator = request.user
             new.save()
+            addnotif(topic.creator, {"type":"comment", "id":topic_id})
             return redirect('mainpage:topic', topic_id=topic_id)
     context = {'topic':topic, 'form':form}
     return render(request, 'mainpage/newcomment.html', context)
@@ -114,6 +111,8 @@ def newpoll(request):
             poll.creator = request.user
             poll.choices = choices.split("\n")
             poll.save()
+            for user in User.objects.all():
+                addnotif(user, {"type":"newpoll", "id":poll.id})
             return redirect('mainpage:poll')
     context = {'form':form}
     return render(request, 'mainpage/newpoll.html', context)

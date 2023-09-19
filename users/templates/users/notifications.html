@@ -8,6 +8,12 @@
     <p class="card-text">
         {% if notif.type == "pollvote" %}
             Your poll was voted on! <a href="{% url 'mainpage:viewpoll' notif.id %}">See your poll here. </a>
+        {% elif notif.type == "newtopic" %}
+            There is a new topic! <a href="{% url 'mainpage:topic' notif.id %}">Check it out here!</a>
+        {% elif notif.type == "comment" %}
+            There is a new comment! <a href="{% url 'mainpage:topic' notif.id %}">Check out your topic!</a>
+        {% elif notif.type == "newpoll" %}
+        There is a new poll! <a href="{% url 'mainpage:pollform' notif.id %}">Vote here!</a>
         {% endif %}
     </p><br>
 </div></div>
