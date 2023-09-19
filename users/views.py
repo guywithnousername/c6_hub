@@ -19,7 +19,7 @@ def register(request):
 @login_required
 def notifications(request):
     if not hasattr(request.user, "notification"):
-        Notification.objects.create(user=request.user, unread = [])
+        Notification.objects.create(user=request.user, unread = [], read=True)
     request.user.notification.read = True
     request.user.notification.save()
     context = {"notifs":request.user.notification.unread}

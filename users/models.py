@@ -5,7 +5,7 @@ from django.apps import apps
 class Notification(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     unread = models.JSONField(null=True)
-    read = models.BooleanField()
+    read = models.BooleanField(null=True)
 
 def addnotif(user, notif):
     if hasattr(user, "notification"):
