@@ -3,6 +3,7 @@
 
 {% block content %}
 <h1>{{ poll }}</h1>
+<p>Please select an option from the dropdown.</p>
 <form action="{% url 'mainpage:pollform' poll.id %}" method='post'>
     {% csrf_token %}
     {% bootstrap_form form %}

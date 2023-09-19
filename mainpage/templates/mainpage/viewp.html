@@ -3,7 +3,8 @@
 
 {% block content %}
 <h1>Poll Results</h1>
-<p>{{ poll }}</p><br>
+<p>{{ poll }}</p><hr>
+<p>Total votes: <b>{{ total }}</b></p><br>
 {% for value in values %}
 {{ value.0 }} - {{ value.2 }}
 <div class="progress">
