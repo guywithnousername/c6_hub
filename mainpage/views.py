@@ -44,7 +44,13 @@ def pollform(request, poll_id):
             chosen = form.cleaned_data["choice"]
             poll.values[request.user.username] = int(chosen)
             poll.save()
-            print(*poll.values.values())
+            addnotif(poll.creator, {"type":"pollvote", "id":poll.id})
+            # if hasattr(poll.creator, "notification"):
+            #     poll.creator.notification.unread.append({"type":"pollvote", "id":poll.id})
+            #     poll.creator.notification.save()
+            # else:
+            #     apps.get_model("users","Notification").objects.create(user=poll.creator,
+            #     unread = [{"type":"pollvote", "id":poll.id}])
             return redirect('mainpage:viewpoll', poll_id)
     context = {'form' : form, 'poll' : poll}
     return render(request, 'mainpage/pollform.html', context)

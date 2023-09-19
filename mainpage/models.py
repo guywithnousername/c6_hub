@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.apps import apps
 
 class Poll(models.Model):
     question = models.CharField(max_length = 100)
@@ -29,3 +30,11 @@ class Comment(models.Model):
     
     def __str__(self):
         return self.text
+    
+def addnotif(user, notif):
+    if hasattr(user, "notification"):
+        user.notification.unread.insert(0, notif)
+        user.notification.save()
+    else:
+        apps.get_model("users","Notification").objects.create(user=user,
+        unread = [notif])

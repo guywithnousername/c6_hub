@@ -5,7 +5,11 @@
 <h1>Notifications</h1><hr>
 {% for notif in notifs %}
 <div class="card"><div class="card-body">
-    <p class="card-text">{{ notif }}</p><br>
+    <p class="card-text">
+        {% if notif.type == "pollvote" %}
+            Your poll was voted on! <a href="{% url 'mainpage:viewpoll' notif.id %}">See your poll here. </a>
+        {% endif %}
+    </p><br>
 </div></div>
 {% empty %}
 <p>You have no unread notifications.</p>
