@@ -18,6 +18,7 @@ class Topic(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     body = models.CharField(max_length=1000)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    votes = models.IntegerField()
     
     def __str__(self):
         return self.title

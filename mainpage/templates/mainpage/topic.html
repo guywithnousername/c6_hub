@@ -2,14 +2,23 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<h1>{{ topic }}</h1>
-<pre>{{ topic.body }}</pre><hr>
+<div>
+    <div class="inline">
+        <button>^</button>
+        <p>{{ topic.votes }} {% if topic.votes == 1 %}vote{% else %}votes{% endif %}</p>
+        <button>v</button>
+    </div>
+    <div class="inline">
+        <p style="font-size: xxx-large;">{{ topic }}</p>
+        <pre>{{ topic.body }}</pre>
+    </div>
+</div><hr>
 <h2>Comments</h2>
 <a href="{% url 'mainpage:newcomment' topic.id %}">Comment</a><br>
 {% for comment in comments %}
 <div class="card"><div class="card-body">
     <small class="card-text">{{ comment.creator.username }}</small><br>
-    <pre class="card-text">{{ comment }}</pre>
+    <p class="card-text">{{ comment }}</p>
 </div></div>
 {% empty %}
     <p>There are no comments... yet.</p>

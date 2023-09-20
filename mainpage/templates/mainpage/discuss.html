@@ -6,7 +6,8 @@
 <a href="{% url 'mainpage:newtopic' %}">Create a topic</a><hr>
 {% for topic in topics %}
     <div class="card"><div class="card-body">
-        <small class="card-text">{{ topic.creator.username }}</small><br>
+        <small class="card-text">{{ topic.creator.username }} - {{ topic.votes }} {% if topic.votes == 1 %}vote{% else %}votes{% endif %}
+        </small><br>
         <pre><a class="card-text" href="{% url 'mainpage:topic' topic.id %}">{{ topic }}</a></pre>
     </div></div>
 {% empty %}

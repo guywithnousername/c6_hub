@@ -72,6 +72,7 @@ def newtopic(request):
         if form.is_valid():
             new = form.save(commit=False)
             new.creator = request.user
+            new.votes = 0
             new.save()
             for user in User.objects.all():
                 addnotif(user, {"type":"newtopic", "id":new.id})
