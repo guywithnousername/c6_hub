@@ -58,10 +58,10 @@ def votedown(request, type, id):
     
     voted = model.voted[request.user.username]
     if voted == -1:
-        model.votes -= 1
+        model.votes += 1
         model.voted[request.user.username] = 0
     else:
-        model.votes += 1
+        model.votes -= 1
         model.voted[request.user.username] = -1
     model.save()
     return redirect(redir, id)
