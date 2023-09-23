@@ -43,6 +43,9 @@ def voteup(request, type, id):
     if model.voted == None:
         model.voted = {request.user.username:0}
         
+    if not request.user.username in model.voted.keys():
+        model.voted[request.user.username] = 0
+    
     voted = model.voted[request.user.username]
     if voted == 1:
         model.votes -= 1
@@ -61,6 +64,9 @@ def votedown(request, type, id):
     model, redir, rid = a(type, id)
     if model.voted == None:
         model.voted = {request.user.username:0}
+    
+    if not request.user.username in model.voted.keys():
+        model.voted[request.user.username] = 0
     
     voted = model.voted[request.user.username]
     if voted == -1:
