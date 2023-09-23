@@ -26,13 +26,20 @@ def notifications(request):
     context = {"notifs":request.user.notification.unread}
     return render(request, "users/notifications.html", context)
 
-@login_required
-def voteup(request, type, id):
-    model = None
-    redir = ""
+def a(type, id):
     if type == "topic":
         model = apps.get_model("mainpage", "Topic").objects.get(id=id)
         redir = "mainpage:topic"
+        rid = id
+    if type == "comment":
+        model = apps.get_model("mainpage", "Comment").objects.get(id=id)
+        redir = "mainpage:topic"
+        rid = model.topic.id
+    return model, redir, rid
+
+@login_required
+def voteup(request, type, id):
+    model, redir, rid = a(type, id)
     if model.voted == None:
         model.voted = {request.user.username:0}
         
@@ -47,15 +54,11 @@ def voteup(request, type, id):
         model.votes += 1
         model.voted[request.user.username] = 1
     model.save()
-    return redirect(redir, id)
+    return redirect(redir, rid)
     
 @login_required
 def votedown(request, type, id):
-    model = None
-    redir = ""
-    if type == "topic":
-        model = apps.get_model("mainpage", "Topic").objects.get(id=id)
-        redir = "mainpage:topic"
+    model, redir, rid = a(type, id)
     if model.voted == None:
         model.voted = {request.user.username:0}
     
@@ -70,4 +73,4 @@ def votedown(request, type, id):
         model.votes -= 1
         model.voted[request.user.username] = -1
     model.save()
-    return redirect(redir, id)
+    return redirect(redir, rid)

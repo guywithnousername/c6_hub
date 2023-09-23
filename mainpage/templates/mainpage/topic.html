@@ -18,6 +18,9 @@
 {% for comment in comments %}
 <div class="card"><div class="card-body">
     <div class="inline">
+        <a href="{% url 'users:upvote' 'comment' comment.id %}"><button>^</button></a>
+        <p>{{ comment.votes }} {% if comment.votes == 1 %}vote{% else %}votes{% endif %}</p>
+        <a href="{% url 'users:downvote' 'comment' comment.id %}"><button>v</button></a>
     </div>
     <div class="inline">
         <small class="card-text">{{ comment.creator.username }}</small><br>

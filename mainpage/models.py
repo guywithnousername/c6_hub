@@ -8,6 +8,8 @@ class Poll(models.Model):
     choices = models.JSONField()
     values = models.JSONField()
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    votes = models.IntegerField()
+    voted = models.JSONField(null=True)
 
     def __str__(self):
         return self.question
@@ -29,6 +31,8 @@ class Comment(models.Model):
     text = models.TextField(max_length = 500)
     date_added = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    votes = models.IntegerField()
+    voted = models.JSONField(null=True)
     
     def __str__(self):
         return self.text
