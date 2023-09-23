@@ -40,6 +40,9 @@ def voteup(request, type, id):
     if voted == 1:
         model.votes -= 1
         model.voted[request.user.username] = 0
+    elif voted == -1:
+        model.votes += 2
+        model.voted[request.user.username] = 1
     else:
         model.votes += 1
         model.voted[request.user.username] = 1
@@ -60,6 +63,9 @@ def votedown(request, type, id):
     if voted == -1:
         model.votes += 1
         model.voted[request.user.username] = 0
+    elif voted == 1:
+        model.votes -= 2
+        model.voted[request.user.username] = -1
     else:
         model.votes -= 1
         model.voted[request.user.username] = -1
