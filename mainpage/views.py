@@ -91,6 +91,7 @@ def newcomment(request, topic_id):
             new = form.save(commit=False)
             new.topic = topic
             new.creator = request.user
+            new.votes = 0
             new.save()
             addnotif(topic.creator, {"type":"comment", "id":topic_id})
             return redirect('mainpage:topic', topic_id=topic_id)
