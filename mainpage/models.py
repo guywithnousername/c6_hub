@@ -19,6 +19,7 @@ class Topic(models.Model):
     body = models.CharField(max_length=1000)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     votes = models.IntegerField()
+    voted = models.JSONField(null=True) # format - username:1/-1
     
     def __str__(self):
         return self.title

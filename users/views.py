@@ -28,16 +28,40 @@ def notifications(request):
 
 @login_required
 def voteup(request, type, id):
+    model = None
+    redir = ""
     if type == "topic":
-        topic = apps.get_model("mainpage", "Topic").objects.get(id=id)
-        topic.votes += 1
-        topic.save()
-        return redirect("mainpage:topic", id)
+        model = apps.get_model("mainpage", "Topic").objects.get(id=id)
+        redir = "mainpage:topic"
+    if model.voted == None:
+        model.voted = {request.user.username:0}
+        
+    voted = model.voted[request.user.username]
+    if voted == 1:
+        model.votes -= 1
+        model.voted[request.user.username] = 0
+    else:
+        model.votes += 1
+        model.voted[request.user.username] = 1
+    model.save()
+    return redirect(redir, id)
     
 @login_required
 def votedown(request, type, id):
+    model = None
+    redir = ""
     if type == "topic":
-        topic = apps.get_model("mainpage", "Topic").objects.get(id=id)
-        topic.votes -= 1
-        topic.save()
-        return redirect("mainpage:topic", id)
+        model = apps.get_model("mainpage", "Topic").objects.get(id=id)
+        redir = "mainpage:topic"
+    if model.voted == None:
+        model.voted = {request.user.username:0}
+    
+    voted = model.voted[request.user.username]
+    if voted == -1:
+        model.votes -= 1
+        model.voted[request.user.username] = 0
+    else:
+        model.votes += 1
+        model.voted[request.user.username] = -1
+    model.save()
+    return redirect(redir, id)
