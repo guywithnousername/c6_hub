@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
+from ..users import models as usmods
 
 def index(request):
     return render(request, 'mainpage/index.html')
@@ -44,7 +45,7 @@ def pollform(request, poll_id):
             chosen = form.cleaned_data["choice"]
             poll.values[request.user.username] = int(chosen)
             poll.save()
-            addnotif(poll.creator, {"type":"pollvote", "id":poll.id})
+            usmods.addnotif(poll.creator, {"type":"pollvote", "id":poll.id})
             return redirect('mainpage:viewpoll', poll_id)
     context = {'form' : form, 'poll' : poll}
     return render(request, 'mainpage/pollform.html', context)
@@ -75,7 +76,7 @@ def newtopic(request):
             new.votes = 0
             new.save()
             for user in User.objects.all():
-                addnotif(user, {"type":"newtopic", "id":new.id})
+                usmods.addnotif(user, {"type":"newtopic", "id":new.id})
             return redirect('mainpage:discuss')
     context = {'form':form}
     return render(request, 'mainpage/newtopic.html', context)
@@ -93,7 +94,8 @@ def newcomment(request, topic_id):
             new.creator = request.user
             new.votes = 0
             new.save()
-            addnotif(topic.creator, {"type":"comment", "id":topic_id})
+            usmods.addnotif(topic.creator, {"type":"comment", "id":topic_id})
+            usmods.addpoints(topic.creator, 1)
             return redirect('mainpage:topic', topic_id=topic_id)
     context = {'topic':topic, 'form':form}
     return render(request, 'mainpage/newcomment.html', context)
@@ -112,9 +114,11 @@ def newpoll(request):
             poll.values = {"":-1}
             poll.creator = request.user
             poll.choices = choices.split("\n")
+            poll.votes = 0
             poll.save()
             for user in User.objects.all():
-                addnotif(user, {"type":"newpoll", "id":poll.id})
+                usmods.addnotif(user, {"type":"newpoll", "id":poll.id})
+            usmods.addpoints(request.user, 1)
             return redirect('mainpage:poll')
     context = {'form':form}
     return render(request, 'mainpage/newpoll.html', context)
